@@ -14,6 +14,6 @@ class UserBalance extends Model
     protected $table = 'userBalance';
 
     protected $fillable = [
-        'balance', 'user_id', 'pendingBalance', 'isoCode', 'status'
+        'balance', 'user_id', 'pendingBalance', 'status', 'reference'
     ];
 }

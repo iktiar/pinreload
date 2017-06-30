@@ -32,21 +32,23 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">Balance add</div>
-
-                    Your balance details:
-                    {{Auth::user()->find(Auth::user()->id)->balance}}
+                    Name / balance / currency:  <br>
+                    {{$user->name}} <br>
+                       {{isset($user->balance->balance) ? $user->balance->balance : "" }}
+                    <br>
+                      {{isset($user->currency->currency) ? $user->currency->currency : "" }}
                     <div class="panel-body">
-                      Select currency
-                       {!! Form::open(['url' => 'userbalance']) !!}
-                            {{ Form::select('currencies', $currencies) }}
+                       {!! Form::open(['url' => 'adduserbalance']) !!}
                             <div class="form-group">
                                 <label for="exchangeRate"> amount</label>
-                                <input type="text" name="balance" id="balance" value="" class="form-control">
-                                <input type="text" name="user_id" id="user_id" value="{{$user_id}}" class="form-control">
+                                 <input type="text" name="balance" id="balance" value="{{ old('balance') }}" class="form-control" required>
+                                <label for="reference"> reference</label>
+                                  <input type="text" name="reference" id="reference" value="{{ old('reference') }}" class="form-control" required>
+                                <label for="password">password</label>
+                                  <input type="password" name="password" id="password" value="" class="form-control" required>
+                                <input type="hidden" name="user_id" id="user_id" value="{{$user->id}}" class="form-control">
                             </div>
-                            <?php
-
-                             echo Form::submit('Submit'); ?>
+                            <?php echo Form::submit('Submit'); ?>
                        {!! Form::close() !!}
                     </div>
 

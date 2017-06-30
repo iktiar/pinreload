@@ -15,9 +15,9 @@ class UserBalanceController extends Controller
      */
     public function index()
     {
-        $currencies = Currency::pluck('currencyName','isoCode');
+        $currencies = Currency::pluck('currencyName', 'isoCode');
 
-        return view('userBalance.userBalanceIndex', ['currencies' => $currencies]);
+        return view('userbalance.userbalance', ['currencies' => $currencies])->with('status', 'Data imported successfully');
     }
 
     /**
@@ -33,7 +33,7 @@ class UserBalanceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -46,79 +46,32 @@ class UserBalanceController extends Controller
         ]);
 
 
-       try
-        {
-            $userBalance = \DB::table('userBalance')->where('user_id', '=',$request['user_id'])->first();
+        try {
+            $userBalance = \DB::table('userBalance')->where('user_id', '=', $request['user_id'])->first();
             //if user already added in balance, add new amount in pending column
             if (count($userBalance) > 0) {
 
-                $totalpending = $userBalance->pendingBalance + $request['balance'];
+                $totalBalance = $userBalance->balance + $request['balance'];
                 $result = UserBalance::where('user_id', '=', $request['user_id'])
-                    ->update(['pendingBalance' => $totalpending,
-                              'isoCode' => $request['currencies'],
-                              'status' => config('bdpin.pending') ] );
+                                      ->update(['balance' =>  $totalBalance,
+                                                'isoCode' => $request['currencies'],
+                                                'status' => config('pin.approved')]);
 
             } else {
                 //  user first time added in balance, add in pending column
                 $newUserBalance = new UserBalance();
-                $newUserBalance->balance = 0;
-                $newUserBalance->pendingBalance = $request['balance'];
+                $newUserBalance->balance = $request['balance'];
                 $newUserBalance->user_id = $request['user_id'];
                 $newUserBalance->isoCode = $request['currencies'];
-                $newUserBalance->status  = config('bdpin.pending');
+                $newUserBalance->status = config('pin.approved');
                 $newUserBalance->save();
             }
 
-            return \Redirect::to('/userbalance')->with('status', 'Save successful');
+            return \Redirect::to('/manageUserBalance')->with('status', 'Save successful');
+        } catch (\Exception $e) {
+            return \Redirect::to('/userbalance')->with('error', 'Error occurred' . $e->getMessage());
+
         }
-        catch (\Exception $e){
-            return \Redirect::to('/userbalance')->with('error', 'Error occurred'.$e->getMessage());
-
-    }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

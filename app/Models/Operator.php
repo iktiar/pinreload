@@ -12,4 +12,14 @@ class Operator extends Model
      * @var string
      */
     protected $table = 'operators';
+    protected $primaryKey = 'operatorId';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'country', 'operator', 'currency', 'amount', 'pin', 'expiry_date', 'status'
+    ];
 }

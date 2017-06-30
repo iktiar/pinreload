@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\UserBalance;
+use App\Models\UserCurrency;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -23,7 +24,7 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','phone','status'
     ];
 
     /**
@@ -39,4 +40,10 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasOne(UserBalance::class);
     }
+
+    public function currency()
+    {
+        return $this->hasOne(UserCurrency::class);
+    }
+
 }

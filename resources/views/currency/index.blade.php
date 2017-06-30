@@ -26,7 +26,7 @@
                       <div class="panel-body">
                               
                               {!! Form::open(['url' => 'manageexchangerate','class'=>'form-horizontal']) !!}
-                                  <div class="form-group">
+                            <div class="form-group">
                               <label class="col-sm-2 control-label" for="exchangeCountry">Set exchange rate</label>
                               <div class="col-sm-10"> 
                                       {{ Form::select('currencies', $currencies, null, ['id'=>'exchangeCountry', 'class'=>'form-control']) }}

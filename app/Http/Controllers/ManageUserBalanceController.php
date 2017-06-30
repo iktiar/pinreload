@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\UserBalance;
 use App\User;
-use App\Models\ModelUserBalanceApprovalAudit;
+use Illuminate\Http\Request;
 
 class ManageUserBalanceController extends Controller
 {
@@ -19,9 +18,11 @@ class ManageUserBalanceController extends Controller
         //$userBalances = UserBalance::all();
 
         //fetch all nomal/pin puller user
-        $allNormalUser =  User::select('id', 'name', 'email')->with(
-                            ['roles' => function ($query) {  $query->select('name');}]
-                            )->get();
+        $allNormalUser = User::select('id', 'name', 'email','status')->with(
+            ['roles' => function ($query) {
+                $query->select('name');
+            }, 'balance', 'currency']
+        )->get();
         return view('manageUserBalance.manageUserBalanceIndex', ['userBalances' => $allNormalUser]);
     }
 
@@ -38,7 +39,7 @@ class ManageUserBalanceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -65,57 +66,14 @@ class ManageUserBalanceController extends Controller
             //admin has approved user's pending amoung, lets add it with existing balance.
             $balance =  $userBalance->balance + $userBalance->pendingBalance;
             $result  = UserBalance::where('user_id', '=', $request['user_id'])
-                ->update(['status'  => config('bdpin.discard')]);
+                ->update(['status' => config('bdpin.discard')]);
         }
 
         $userBalances = UserBalance::all();
 
-        return view('manageUserBalance.manageUserBalanceIndex', ['userBalances' => $userBalances]);
+        return view('manageuserbalance.manageUserBalanceIndex', ['userBalances' => $userBalances]);
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }

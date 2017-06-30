@@ -37,11 +37,7 @@
 </head>
 <body>
     <div id="app">
-
-
-
         <div id="wrapper">
-
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -57,8 +53,9 @@
 
             <ul class="nav navbar-top-links navbar-right">
                 @if (Auth::guest())
-                           <!--  <li><a href="{{ route('login') }}">Login</a></li> -->
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                    <li>
+                        <a href="{{ route('register') }}">Register</a>
+                    </li>
                 @else                      
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" id="topMenu" href="#">
@@ -83,99 +80,39 @@
             </ul>
             <!-- /.navbar-top-links -->
             @if (Auth::check())
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <!-- <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
-                        </li> -->
-                        <li>
-                            <a href="{{ url('/home') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                        </li>
-                         <li>
-                            <a href="{{ url('/pins') }}"><i class="fa fa-file-text-o"></i> All Pins</a>                          
-                        </li>
-                        <li>
-                            <a href="{{ url('/manageexchangerate') }}"><i class="fa fa-usd"></i> Manage Exchange rate</a>                          
-                        </li>
-                        <li>
-                            <a href="{{ url('/manageuserbalance') }}"><i class="fa fa-user fa-fw"></i> Manage user balance</a>
-                        </li>
-                    </ul>
+                <div class="navbar-default sidebar" role="navigation">
+                    <div class="sidebar-nav navbar-collapse">
+                        <ul class="nav" id="side-menu">
+                            <li>
+                                <a href="{{ url('/home') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            </li>
+                             <li>
+                                <a href="{{ url('/pins') }}"><i class="fa fa-file-text-o"></i> All Pins</a>                          
+                            </li>
+                            <li>
+                                <a href="{{ url('/manageexchangerate') }}"><i class="fa fa-usd"></i> Manage Exchange rate</a>                          
+                            </li>
+                            <li>
+                                <a href="{{ url('/manageuserbalance') }}"><i class="fa fa-user fa-fw"></i> Manage user balance</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('/getpintransactionlist') }}"><i class="fa fa-user fa-fw"></i> Get transaction list</a>
+                            </li>
+                             <li>
+                                <a href="{{ url('/operator') }}"><i class="fa fa-user fa-fw"></i> Operator list</a>
+                            </li>
+                             <li>
+                                <a href="{{ url('/api-doc') }}"><i class="fa fa-user fa-fw"></i>API Reference</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /.sidebar-collapse -->
                 </div>
-                <!-- /.sidebar-collapse -->
-            </div>
             @endif
             <!-- /.navbar-static-side -->
-        </nav>
-
-        
+        </nav>        
             
-        @yield('content') 
-
-        <!-- <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
-
-                    
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Home') }}
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
-
-                    
-                    <ul class="nav navbar-nav navbar-right">
-                        
-                        @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endif
-                    </ul>
-                </div>
-            </div>
-        </nav> -->
-
+        @yield('content')         
         </div>
     </div>
 
@@ -190,11 +127,6 @@
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="{{ asset('assets/vendor/metisMenu/metisMenu.min.js') }}"></script>
-
-    <!-- Morris Charts JavaScript -->
-    <!-- <script src="{{ asset('assets/vendor/raphael/raphael.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/morrisjs/morris.min.js') }}"></script>
-    <script src="{{ asset('assets/data/morris-data.js') }}"></script> -->
 
     <!-- DataTables JavaScript -->
     <script src="{{ asset('assets/vendor/datatables/js/jquery.dataTables.min.js') }}"></script>

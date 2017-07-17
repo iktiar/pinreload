@@ -6,17 +6,14 @@ PinManagement is web application with following highlevel features:
   - Frontend for normal users, log and and view existing balance, order history, reports etc.
   - API for other application consume api for "PIN" with credentials.
   
-This application developed with Laravel framework with MVC model.
+This application developed with Laravel framework 5.4 with MVC model.
 
 
-## Laravel sdfsd
+## Setup
+For setup , clone then check [Laravel  installation](https://laravel.com/docs/5.4) for setup and do following  :
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](http://patreon.com/taylorotwell):
-
-- **[Vehikl](http://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Styde](https://styde.net)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
+- update local db and other configuration
+- run migration, from terminal
+- make an local alias. and try access in browser.
+- mail me if any issue and feedback iktiar2002@gmail.com
 

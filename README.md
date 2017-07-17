@@ -1,9 +1,10 @@
 
 ## About PinManagement (Pin reload, manamgnet,api consume)
 
-PinManagement is web application with following highlevel featuresfsd
-  - **Frontend for normal users
-  - **and API for other application consume api for "PIN".
+PinManagement is web application with following highlevel features:
+  - Admin: for CSV and manual upload of Pins, user, group set, currency conversion management and many reports.
+  - Frontend for normal users, log and and view existing balance, order history, reports etc.
+  - API for other application consume api for "PIN" with credentials.
   
 This application developed with Laravel framework with MVC model.
 
